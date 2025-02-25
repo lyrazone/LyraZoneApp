@@ -1,0 +1,24 @@
+#home {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("/img/banner.jpg") no-repeat center center/cover;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 100px 0;
+    color: white;
+  }
+  
+  .about-content-box {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .desc-comp-offer-cont img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
