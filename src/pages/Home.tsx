@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Git from "./Git";
 import LatestNews from "./LatestNews";
+// import Header from "../components/Header";
+// import Footer from "../components/Footer";
 import "../assets/style.css";
 import "../assets/bootstrap/bootstrap.min.css";
 
@@ -701,6 +703,7 @@ const Home: React.FC = () => {
       </section>
       <Git />
       <LatestNews />
+      {/* <Footer /> */}
     </>
   );
 };

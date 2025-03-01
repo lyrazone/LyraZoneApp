@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/Header.css"; // Move your navbar styles to a separate CSS file
 // import "../assets/bootstrap/bootstrap.min.css";
 // import "../assets/font-awesome-4.7.0/css/font-awesome.min.css";
@@ -7,6 +7,7 @@ import "../assets/Header.css"; // Move your navbar styles to a separate CSS file
 // import "../assets/owl-carousel/owl.carousel.min.css";
 // import "../assets/owl-carousel/owl.theme.default.min.css";
 import "../assets/style.css";
+
 <link
   href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i"
   rel="stylesheet"
@@ -14,6 +15,20 @@ import "../assets/style.css";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [checkToken, setCheckToken] = useState("");
+  const navigate = useNavigate();
+
+  const removeToken = () => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    navigate('/');
+  };
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token") || sessionStorage.getItem("token");
+    setCheckToken(storedToken || "null");
+    console.log(localStorage.getItem("token") || "null");
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,14 +91,45 @@ const Header: React.FC = () => {
                   </li>
 
                   <li>
-                    <Link
-                      to={"/loginmodal"}
-                      className="log-top"
-                      data-toggle="modal"
-                      data-target="#login-modal"
-                    >
-                      Login
-                    </Link>
+                    {checkToken !== "null" ? (
+                    <>  
+                      <li className="nav-item dropdown">
+                        <a
+                          className="nav-link dropdown-toggle smooth-scroll"
+                          href="#"
+                          id="navbarDropdownAbout"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <img src="images/user-icon.png" alt="User Icon" style={{ width: "30px", height: "25px" }} />
+                        </a>
+                        <div
+                          className="dropdown-menu dropdown-cust"
+                          aria-labelledby="navbarDropdownAbout"
+                        >
+                          <Link className="dropdown-item" to="/adminprofile">
+                            User Profile
+                          </Link>
+                          <Link className="dropdown-item" to="">
+                            Your Invoices
+                          </Link>
+                          <Link className="dropdown-item" to="">
+                            Available Services
+                          </Link>
+                          <a className="dropdown-item"
+                            onClick={() => removeToken()}
+                          >
+                            Logout
+                          </a>
+                        </div>
+                      </li>
+                    </>
+                    ) : (
+                      <a href="/signin" className="log-top">
+                        <img src="images/user-icon.png" alt="User Icon" style={{ width: "30px", height: "25px" }} />
+                      </a>
+                    )}
                   </li>
                 </ul>
               </div>

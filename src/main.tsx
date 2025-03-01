@@ -6,6 +6,8 @@ import App from "./App.tsx";
 import "./assets/bootstrap/bootstrap.min.css";
 import "./assets/font-awesome-4.7.0/css/font-awesome.min.css";
 import "./assets/animate/animate.min.css";
+import "./assets/style.default.css";
+import "./assets/font-icon-style.css";
 import "./assets/owl-carousel/owl.carousel.min.css";
 import "./assets/owl-carousel/owl.theme.default.min.css";
 import "./assets/style.css";
