@@ -102,7 +102,7 @@ const Git: React.FC = () => {
                       placeholder="Write your message here"
                     ></textarea>
                   </div>
-                  <button className="btn btn-general btn-white" type="submit">
+                  <button className="btn btn-general btn-silver" type="submit">
                     SYNC UP NOW
                   </button>
                 </form>

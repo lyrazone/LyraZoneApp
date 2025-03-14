@@ -170,8 +170,8 @@ input {
 }
 
 .btn-white {
-    border-color: #2196f3;
-    background-color: #2196f3;
+    border-color: azure !important;
+    background-color: #050505;
     color: #fff;
 }
 
@@ -696,7 +696,7 @@ nav.navbar {
     position: relative;
     border-radius: 0;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
+    /* z-index: 9999; */
     padding-left: 0;
     padding-right: 0;
     /*==== Toggle Sidebar Btn ====*/

@@ -113,7 +113,7 @@ p {
     }
 
     .btn-white {
-        border-color: #f4f4f4;
+        border-color: #f4f4f4 !important;
         background-color: #ffd910;
         color: #fff;
         border-radius: 5px;
@@ -1380,7 +1380,7 @@ p {
 ======================================================*/
 
     .footer-s1 .footer {
-        padding: 70px 0;
+        padding: 10px 0;
         background: #252525;
     }
 
