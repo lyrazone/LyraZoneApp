@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
           />
         </div>
         <div className="title">
-          <h1 className="h4">Steena Ben</h1>
+          {/* <h1 className="h4">Steena Ben</h1> */}
         </div>
       </div>
       <hr />

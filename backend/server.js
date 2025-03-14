@@ -90,7 +90,7 @@ app.get("/api/activate/:token", async (req, res) => {
             console.log(err);
         } else {
             // res.send();
-            res.send(`<h2>Email verified successfully! You can now <a href="http://localhost:5173/">Sign In</a>.</h2>`);
+            res.send(`<h2>Email verified successfully! You can now <a href="http://localhost:5173/signin">Sign In</a>.</h2>`);
         }
     })
   
@@ -99,16 +99,43 @@ app.get("/api/activate/:token", async (req, res) => {
       res.status(400).json({ message: "Invalid or expired activation link." });
     }
   });
+
+app.get('/api/userdata/:token', async (req, res) => {
+    try{
+
+        const token = req.params.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decoded);
+        const email = decoded.email;
+
+        const sql = `select * from subscribers where email = '${email}'`;
+        new Promise ((resolve, reject) => {
+            db.query(sql, (err, userData) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    console.log(userData);
+                    resolve(res.status(200).json({status: "success", userData: userData}));
+                }
+            });
+        });
+    } catch(err) {
+        console.log("Error during /api/userdata", err);
+        res.status(500).json({status: "failed", message: "Internal Server Error"})
+    }
+})
   
 // User Signup API
 app.post('/api/signup', upload.single('userImage'), async (req, res) => {
     try {
+        console.log(req.body);
         const { name, companyName, email, phoneNumber, password } = req.body;
         const userImage = req.file ? req.file.filename : '';
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Hash the password
+        console.log(password);
+        const hashedPassword = await bcrypt.hash(password, 10);
         // Check if email already exists
         const checkEmailQuery = 'SELECT email FROM subscribers WHERE email = ?';
         db.query(checkEmailQuery, [email], (err, existingUser) => {

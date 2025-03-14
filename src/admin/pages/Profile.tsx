@@ -1,10 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // If using React Router
+import axios from "axios";
 import "../assets/css/profile.css";
 import Sidebar from "../components/Sidebar";
 
 const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("profile");
+  const [data, setData] = useState<any>(null);
+  // const [error, setError] = useState<string | null>(null);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = sessionStorage.getItem("token");
+        console.log(token);
+        const response = await axios.get(`http://localhost:5000/api/userdata/${token}`);
+        console.log(response.data.userData[0]);
+        setData(response.data.userData[0]); 
+      } catch (err) {
+        // setError('Failed to fetch data');
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []); 
 
   return (
     <div className="page-content d-flex align-items-stretch">
@@ -137,6 +159,7 @@ const Profile: React.FC = () => {
          
 
       {/* ***** MAIN CONTENT ***** */}
+      { data ? 
       <div className="content-inner chart-cont">
         <div className="row mt-2" id="card-prof">
           {/* User Card */}
@@ -152,9 +175,9 @@ const Profile: React.FC = () => {
               </div>
               <div className="info">
                 <div className="title">
-                  <a href="#">Steena Ben</a>
+                  <a href="#">{data.name}</a>
                 </div>
-                <div className="desc">steena@gmail.com</div>
+                <div className="desc">{data.email}</div>
                 <hr />
               </div>
               <nav className="nav text-center prof-nav">
@@ -264,13 +287,13 @@ const Profile: React.FC = () => {
                             <strong className="mr-5">
                               <i className="fa fa-envelope"> E-mail: </i>
                             </strong>{" "}
-                            steena@gmail.com
+                            {data.email}
                           </div>
                           <div className="form-group">
                             <strong className="mr-5">
                               <i className="fa fa-phone"> Phone: </i>
                             </strong>{" "}
-                            +91 1233 45 5678
+                            {data.phone}
                           </div>
                           <div className="form-group">
                             <strong className="mr-5">
@@ -294,9 +317,9 @@ const Profile: React.FC = () => {
                           </div>
                           <div className="form-group">
                             <strong className="mr-5">
-                              <i className="fa fa-globe"> Website: </i>
+                              <i className="fa fa-globe"> Company: </i>
                             </strong>{" "}
-                            www.Businessbox.com
+                            {data.company_name}
                           </div>
                         </div>
                       </div>
@@ -383,13 +406,13 @@ const Profile: React.FC = () => {
                                             <div className="form-group row">
                                                 <label htmlFor="example-email-input" style={{width: "85px;"}} className=" col-form-label">Name</label>
                                                 <div className="col-9">
-                                                    <input className="form-control" type="text" value="Steena Ben" id="example-text-input"/>
+                                                    <input className="form-control" type="text" value={data.name} id="example-text-input"/>
                                                 </div>
                                             </div> 
                                             <div className="form-group row">
                                                 <label htmlFor="example-email-input" style={{width: "85px;"}} className=" col-form-label">Email</label>
                                                 <div className="col-9">
-                                                    <input className="form-control" type="email" value="steena@gmail.com" id="example-email-input"/>
+                                                    <input className="form-control" type="email" value={data.email} id="example-email-input"/>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
@@ -415,7 +438,7 @@ const Profile: React.FC = () => {
                                             <div className="form-group row">
                                                 <label htmlFor="example-tel-input" style={{width: "85px;"}} className=" col-form-label">Telephone</label>
                                                 <div className="col-9">
-                                                    <input className="form-control" type="tel" value="+91-(555)-555-5555" id="example-tel-input"/>
+                                                    <input className="form-control" type="tel" value={data.phone} id="example-tel-input"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -427,7 +450,8 @@ const Profile: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> : ""
+      }
     </div>
   );
 };
