@@ -105,10 +105,14 @@ app.get('/api/userdata/:token', async (req, res) => {
 
         const token = req.params.token;
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decoded);
         const email = decoded.email;
+        if (!decoded) {
+            res.status(500).json({status: "failed", message: "You are Not Login, Please login First!"});
+        }
+        // console.log(decoded);
 
-        const sql = `select * from subscribers where email = '${email}'`;
+
+        const sql = `select  name, email, company_name, phone, country, city, address from subscribers where email = '${email}'`;
         new Promise ((resolve, reject) => {
             db.query(sql, (err, userData) => {
                 if (err) {
@@ -121,7 +125,34 @@ app.get('/api/userdata/:token', async (req, res) => {
         });
     } catch(err) {
         console.log("Error during /api/userdata", err);
-        res.status(500).json({status: "failed", message: "Internal Server Error"})
+        res.status(500).json({status: "failed", message: "Internal Server Error"});
+    }
+});
+
+app.put('/api/updateuser/:token', async (req, res) => {
+    try{
+        const token = req.params.token;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const email = decoded.email;
+        if (!email) {
+            console.log("vwevsdvs");
+          return res.status(500).json({status: "failed", message: "Invalid Mail!"});    
+        }
+        console.log(req.body);
+        const {name, company_name, phone, country, city, address} = req.body;
+        const sql = `update subscribers set name = '${name}', company_name = '${company_name}', phone = '${phone}', country = '${country}', city = '${city}', address = '${address}' where email = '${email}'`;
+        new Promise ((resolve, reject) => {
+            db.query(sql, (err) => {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(res.status(200).json({status: "success", message: "Data Update SuccessFully"}));
+                }
+            });
+        });
+    } catch (err) {
+        console.log("Error During api/updateuser", err);
+        res.status(500).json({status: "failed", message: err});
     }
 })
   
@@ -212,7 +243,7 @@ app.post('/api/signin', (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: 'Incorrect Password' });
         }
-        const expiresIn = rememberMe ? "7d" : "1h";
+        const expiresIn = rememberMe ? "7d" : "3h";
         const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn  });
         res.json({ token, user });
     });

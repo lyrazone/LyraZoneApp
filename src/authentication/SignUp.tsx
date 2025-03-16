@@ -17,7 +17,7 @@ const SignUp = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Control modal visibility
   const [previewImage, setPreviewImage] = useState("/images/user-icon.png"); // Default icon
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: any) => {    
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
