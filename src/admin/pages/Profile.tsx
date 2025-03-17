@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom"; // If using React Router
 import axios from "axios";
 import "../assets/css/profile.css";
@@ -19,24 +19,24 @@ const Profile: React.FC = () => {
   // const [error, setError] = useState<string | null>(null);
   // const [loading, setLoading] = useState<boolean>(true);
   // const [] = useState([]);
+  const fetchData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      console.log("Fetching data with token:", token);
+      const response = await axios.get(
+        `http://localhost:5000/api/userdata/${token}`
+      );
+      console.log(response.data.userData[0]);
+      sessionStorage.setItem("userdata", JSON.stringify(response.data.userData[0]));
+      setData(response.data.userData[0]);
+      setFormData(response.data.userData[0]);
+    } catch (err) {
+      // setError('Failed to fetch data');
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        console.log(token);
-        const response = await axios.get(
-          `http://localhost:5000/api/userdata/${token}`
-        );
-        console.log(response.data.userData[0]);
-        setData(response.data.userData[0]);
-        setFormData(response.data.userData[0]);
-      } catch (err) {
-        // setError('Failed to fetch data');
-        console.error(err);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -48,17 +48,16 @@ const Profile: React.FC = () => {
     e.preventDefault();
     console.log("Submitted Data:", formData);
     try {
-
       const token = sessionStorage.getItem("token");
       console.log(token);
       const response = await axios.put(
-        `http://localhost:5000/api/updateuser/${token}`, formData
+        `http://localhost:5000/api/updateuser/${token}`,
+        formData
       );
       console.log(response.data.message);
       alert(response.data.message);
     } catch (err) {
       console.error(err);
-
     }
     // You can now send `formData` via API
   };
@@ -203,7 +202,7 @@ const Profile: React.FC = () => {
                 <div className="avatar">
                   <img
                     alt="User"
-                    src="images/users/avatar-1.jpg"
+                    src={`../src/admin/assets/img/users/${data.user_image}`}
                     className="img-fluid"
                   />
                 </div>
@@ -221,7 +220,10 @@ const Profile: React.FC = () => {
                         className={`nav-link ${
                           activeTab === "profile" ? "active" : ""
                         }`}
-                        onClick={() => setActiveTab("profile")}
+                        onClick={() => {
+                          fetchData();
+                          setActiveTab("profile");
+                        }}
                       >
                         Profile
                       </a>
@@ -275,7 +277,10 @@ const Profile: React.FC = () => {
                         className={`nav-link ${
                           activeTab === "profile" ? "active" : ""
                         }`}
-                        onClick={() => setActiveTab("profile")}
+                        onClick={() => {
+                          fetchData();
+                          setActiveTab("profile");
+                        }}
                       >
                         <i className="fa fa-user"></i> Profile
                       </button>
@@ -307,7 +312,9 @@ const Profile: React.FC = () => {
                     {activeTab === "profile" && (
                       <div className="tab-pane fade show active">
                         <p>
-                          {data.address === ""
+                          {data.address === "" ||
+                          data.country === "" ||
+                          data.city === ""
                             ? "Kindly Complete Your Profile."
                             : "Your Profile is completed"}
                           .{" "}
@@ -538,7 +545,7 @@ const Profile: React.FC = () => {
                                   style={{ width: "85px" }}
                                   className=" col-form-label"
                                 >
-                                  Company 
+                                  Company
                                 </label>
                                 <div className="col-9">
                                   <input
@@ -617,7 +624,7 @@ const Profile: React.FC = () => {
                                   Address
                                 </label>
                                 <div className="col-9">
-                                  <input  
+                                  <input
                                     className="form-control"
                                     type="text"
                                     name="address"
@@ -628,9 +635,16 @@ const Profile: React.FC = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <button type="submit" className="btn btn-primary">
-                                Save Changes
+                              <button type="submit" >
+                                <img
+                                  src="../src/admin/assets/img/save.png"
+                                  alt="Save"
+                                  style={{ width: "24px", height: "24px" }}
+                                />
                               </button>
+                              {/* <button type="submit" className="btn btn-primary">
+                                Save Changes
+                              </button> */}
                             </div>
                           </div>
                         </div>

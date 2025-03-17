@@ -31,7 +31,7 @@ db.connect(err => {
 
 // Multer Configuration for Image Uploads
 const storage = multer.diskStorage({
-    destination: '../frontend/public/users/',
+    destination: '../src/admin/assets/img/users/',
     filename: (req, file, cb) => {
         cb(null, req.body.name + '-' + Date.now() + '-' + file.originalname);
     }
@@ -112,7 +112,7 @@ app.get('/api/userdata/:token', async (req, res) => {
         // console.log(decoded);
 
 
-        const sql = `select  name, email, company_name, phone, country, city, address from subscribers where email = '${email}'`;
+        const sql = `select  name, email, company_name, phone, country, city, address, user_image from subscribers where email = '${email}'`;
         new Promise ((resolve, reject) => {
             db.query(sql, (err, userData) => {
                 if (err) {

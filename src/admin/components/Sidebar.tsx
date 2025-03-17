@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+
+
 const Sidebar: React.FC = () => {
+  const [userImage, setUserImage] = useState("");
+
+   useEffect(() => {
+      setUserImage(JSON.parse((sessionStorage.getItem("userdata") || "null")).user_image);
+    }, []);
+
   return (
     <nav className="side-navbar">
       <div className="sidebar-header d-flex align-items-center">
         <div className="avatar">
           <img
-            src="/images/users/avatar-1.jpg"
+            src={`../src/admin/assets/img/users/${userImage}`}
             alt="User Avatar"
             className="img-fluid rounded-circle"
           />

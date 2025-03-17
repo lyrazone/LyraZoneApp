@@ -23,7 +23,7 @@ import ResetPassword from "./authentication/ResetPassword";
 // import LoginModal from "./pages/LoginModal";
 import AdminLogin from "./admin/pages/AdminLogin";
 import Profile from "./admin/pages/Profile";
-import AdminHeader from "./admin/components/adminHeader";
+import AdminHeader from "./admin/components/AdminHeader";
 
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,

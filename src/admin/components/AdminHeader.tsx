@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaBell,
   FaEnvelope,
@@ -9,7 +9,8 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import logoWhite from "../assets/img/logo-white.png";
-import logoIcon from "../assets/img/logo-icon.png";
+import lyraZoneLogo from "../assets/img/qrapp.png";
+import logoIcon from "../assets/img/logo-icon.png"; 
 import avatar1 from "../assets/img/avatar-1.jpg";
 import avatar2 from "../assets/img/avatar-2.jpg";
 import avatar3 from "../assets/img/avatar-3.jpg";
@@ -21,6 +22,11 @@ const AdminHeader = () => {
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
+    const [userImage, setUserImage] = useState("");
+  
+     useEffect(() => {
+        setUserImage(JSON.parse((sessionStorage.getItem("userdata") || "null")).user_image);
+      }, []);
 
   const handleToggle = () => {
     setIsActive(!isActive); // Toggle state
@@ -97,7 +103,7 @@ const AdminHeader = () => {
                 <ul className="dropdown-menu">
                   <li>
                     <img
-                      src={avatar1}
+                      src={`../src/admin/assets/img/users/${userImage}`}
                       alt=""
                       className="img-fluid rounded-circle"
                     />{" "}
@@ -120,7 +126,7 @@ const AdminHeader = () => {
             <li className="nav-item dropdown">
               <a href="#" onClick={() => setIsProfileOpen(!isProfileOpen)}>
                 <img
-                  src={avatar1}
+                  src={`../src/admin/assets/img/users/${userImage}`}
                   alt="Profile"
                   className="img-fluid rounded-circle"
                   style={{ height: 30, width: 30 }}
