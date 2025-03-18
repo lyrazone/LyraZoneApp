@@ -11,8 +11,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Career from "./pages/Careers";
 import Team from "./pages/Team";
+import Services from "./pages/Services";
 // import Contact from "./pages/Contact";
-// import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Git from "./pages/Git";
 import LatestNews from "./pages/LatestNews";
@@ -54,7 +54,7 @@ const App: React.FC = () => {
           <Route path="/about" element={<About />} />
           <Route path="/careers" element={<Career />} />
           <Route path="/team" element={<Team />} />
-          {/* <Route path="/services" element={<Services />} /> */}
+          <Route path="/services" element={<Services />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

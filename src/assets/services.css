@@ -102,12 +102,12 @@ ul.service-spec li p {
 ======================================================*/
  
 .financial-p2-bg {
-    background-image: url(../img/image-1.jpg);
+    background-image: url(../assets/img/image-1.jpg);
     background-repeat: no-repeat;
 }
 
 .financial-p3-bg {
-    background-image: url(../img/image-2.jpg);
+    background-image: url(../assets/img/image-2.jpg);
     background-repeat: repeat-y;
 }
 
