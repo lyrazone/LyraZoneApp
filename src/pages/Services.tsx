@@ -1,6 +1,9 @@
 import React from "react";
 import "../assets/style.css";
 import "../assets/services.css";
+import LatestNews from "./LatestNews";
+import ContactSection from "./ContactSection";
+import WhatWeDo from "./WhatWeDo";
 
 const Services: React.FC = () => {
   const services = [
@@ -45,27 +48,6 @@ const Services: React.FC = () => {
         "Businessbox will deliver value to all the stakeholders and will attain excellence and leadership through such delivery of value. We will strive to support the stakeholders in all activities related to us. Businessbox provides great things. Everyone defines success differently – as much as there are people, there are different opinions. Number one in our priority list is the success of our students, alumni, and their employers.",
       bgClass: "financial-p2-bg",
       reverse: true,
-    },
-  ];
-
-  const globalServices = [
-    {
-      title: "Professional Growth",
-      icon: "fa-bar-chart",
-      description:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-    },
-    {
-      title: "Research & Development",
-      icon: "fa-bullseye",
-      description:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
-    },
-    {
-      title: "Valuable Services",
-      icon: "fa-star-o",
-      description:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.",
     },
   ];
 
@@ -173,178 +155,52 @@ const Services: React.FC = () => {
         </section>
       ))}
 
-{/* ====================================================
-                      FINANCIAL-P5
-====================================================== */}
+      <WhatWeDo />
 
-      <section className="what-we-do bg-gradiant financial-p5">
-        <div className="container">
-          <div className="row title-bar">
-            <div className="col-md-12">
-              <h1 className="wow fadeInUp cl-white">
-                Global Business Services
-              </h1>
-              <div className="heading-border bg-white"></div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row">
-                {globalServices.map((service, index) => (
-                  <div key={index} className="col-md-4 col-sm-6">
-                    <div
-                      className="what-we-desc wow fadeInUp"
-                      data-wow-delay="0.1s"
-                    >
-                      <i className={`fa ${service.icon}`}></i>
-                      <h6>{service.title}</h6>
-                      <p className="desc">{service.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-        {/* ====================================================
+      {/* ====================================================
                         FINANCIAL-P6
     ====================================================== */}
 
       <section id="financial-p6" className="financial-p6">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="financial-p6-img">
-              <img
-                src="src/assets/img/image-3.jpg"
-                className="img-fluid wow fadeInUp"
-                data-wow-delay="0.1s"
-                alt="Businessbox"
-              />
-              <img src="" alt="" />
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="financial-p6-cont">
-              <h2 className="wow fadeInUp">Creative Idea Businessbox</h2>
-              <div className="heading-border-light"></div>
-              <p>
-                Lorem Ipsum has been the industry's standard dummy text ever since
-                the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not
-                only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised
-                in the 1960s with the release of Letraset sheets containing
-                Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-              <button className="btn btn-general btn-white" role="button">
-                Contact
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* ====================================================
-                    CONTACT HOME
-====================================================== */}
-
-    <div className="overlay-contact-h"></div>
-      <section id="contact-h" className="bg-parallax contact-h-bg">
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <div className="contact-h-cont">
-                <h3 className="cl-white">Continue The Conversation</h3>
-                <br />
-                <form>
-                  <div className="form-group cl-white">
-                    <label htmlFor="name">Your Name</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="name"
-                      aria-describedby="nameHelp"
-                      placeholder="Enter name"
-                    />
-                  </div>
-                  <div className="form-group cl-white">
-                    <label htmlFor="email">Email address</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      aria-describedby="emailHelp"
-                      placeholder="Enter email"
-                    />
-                  </div>
-                  <div className="form-group cl-white">
-                    <label htmlFor="subject">Subject</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="subject"
-                      aria-describedby="subjectHelp"
-                      placeholder="Enter subject"
-                    />
-                  </div>
-                  <div className="form-group cl-white">
-                    <label htmlFor="message">Message</label>
-                    <textarea className="form-control" id="message" rows={3}></textarea>
-                  </div>
-                  <button className="btn btn-general btn-white" role="button">
-                    <i className="fa fa-right-arrow"></i> GET CONVERSATION
-                  </button>
-                </form>
+              <div className="financial-p6-img">
+                <img
+                  src="src/assets/img/image-3.jpg"
+                  className="img-fluid wow fadeInUp"
+                  data-wow-delay="0.1s"
+                  alt="Businessbox"
+                />
+                <img src="" alt="" />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="financial-p6-cont">
+                <h2 className="wow fadeInUp">Creative Idea Businessbox</h2>
+                <div className="heading-border-light"></div>
+                <p>
+                  Lorem Ipsum has been the industry's standard dummy text ever
+                  since the 1500s, when an unknown printer took a galley of type
+                  and scrambled it to make a type specimen book. It has survived
+                  not only five centuries, but also the leap into electronic
+                  typesetting, remaining essentially unchanged. It was
+                  popularised in the 1960s with the release of Letraset sheets
+                  containing Lorem Ipsum passages, and more recently with
+                  desktop publishing software like Aldus PageMaker including
+                  versions of Lorem Ipsum.
+                </p>
+                <button className="btn btn-general btn-white" role="button">
+                  Contact
+                </button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="comp-offer">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-            <h2>Latest News</h2>
-            <div className="heading-border-light"></div>
-            <button className="btn btn-general btn-green" role="button">See More</button>
-          </div>
-          {[{
-            image: "src/assets/img/news/news-1.jpg",
-            title: "Pricing Strategies for Product",
-            delay: "0.4s"
-          }, {
-            image: "src/assets/img/news/news-9.jpg",
-            title: "Design Exhibitions of 2017",
-            delay: "0.6s"
-          }, {
-            image: "src/assets/img/news/news-12.jpeg",
-            title: "Exciting New Technologies",
-            delay: "0.8s"
-          }].map((news, index) => (
-            <div key={index} className={`col-md-3 col-sm-6 desc-comp-offer wow fadeInUp`} data-wow-delay={news.delay}>
-              <div className="desc-comp-offer-cont">
-                <div className="thumbnail-blogs">
-                  <div className="caption">
-                    <i className="fa fa-chain"></i>
-                  </div>
-                  <img src={news.image} className="img-fluid" alt={news.title} />
-                </div>
-                <h3>{news.title}</h3>
-                <p className="desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from Business box.</p>
-                <a href="#"><i className="fa fa-arrow-circle-o-right"></i> Learn More</a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-     
+      <ContactSection />
+      <LatestNews />
     </>
   );
 };
