@@ -1,8 +1,33 @@
 import React from "react";
 import "../assets/testimonials.css";
+import LatestNews from "./LatestNews";
+import ContactSection from "./ContactSection";
+import OwlCarousel from "react-owl-carousel";
 // import "../assets/style.css";
 
 const Testimonials: React.FC = () => {
+
+  const testimonials = [
+    {
+      img: "src/assets/img/client/avatar-17.jpg",
+      text: "It's indeed a Solutions centre, ELBS ERP and POS Systems are the best applications which help in Business progress, such a nice experience by having them.",
+      author: "BOD",
+      position: "Board of Directors",
+    },
+    {
+      img: "src/assets/img/client/avatar-2.jpg",
+      text: "I found Lyra Zone perfect in Solutions and Services. I not only get the Solutions, I got Peace of Mind. Thanks Lyra Zone.",
+      author: "Faisal Zahoor",
+      position: "Director - ZyMal Textile",
+    },
+    {
+      img: "src/assets/img/client/avatar-3.jpg",
+      text: "Lyra Zone provided great Services to settle our Accounts for the Financial Year 2020. Warm Regards Lyra Zone.",
+      author: "Wong",
+      position: "Director - Libta Coffee",
+    },
+  ];
+  
   return (
     <>
       {/* HOME-P */}
@@ -24,7 +49,46 @@ const Testimonials: React.FC = () => {
         </div>
       </div>
 
-      <div className="overlay-testimonials-p1"></div>
+      <section id="testimonials-p1" className="bg-parallax testimonials-p1-bg">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-8"></div>
+          <div className="col-md-4 bg-gradiant testimonials-p1-pos">
+            <div className="testimonials-p1-cont">
+              <OwlCarousel
+                className="text-center owl-theme"
+                loop
+                margin={10}
+                nav
+                items={1}
+                autoplay
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="testimonial">
+                    <img
+                      src={testimonial.img}
+                      alt="testimonial"
+                      className="img-fluid rounded-circle"
+                    />
+                    <blockquote>
+                      <p>{testimonial.text}</p>
+                    </blockquote>
+                    <div className="testimonial-author">
+                      <p>
+                        <strong>{testimonial.author}</strong>
+                        <span>{testimonial.position}</span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </OwlCarousel>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      {/* <div className="overlay-testimonials-p1"></div>
       <section id="testimonials-p1" className="bg-parallax testimonials-p1-bg">
         <div className="container-fluid">
           <div className="row">
@@ -47,7 +111,7 @@ const Testimonials: React.FC = () => {
                         </p>
                     </div>
                 </div>
-                  {/* {[
+                  {[
                     {
                       img: "/images/client/avatar-17.jpg",
                       text: "It's indeed a Solutions centre, ELBS ERP and POS Systems are the best applications which help in Business progress, such a nice experience by having them.",
@@ -83,13 +147,13 @@ const Testimonials: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                  ))} */}
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* TESTIMONIALS-P2 */}
       <section id="client" className="client testimonials-p2">
@@ -156,6 +220,9 @@ const Testimonials: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <ContactSection />
+      <LatestNews />
     </>
   );
 };

@@ -13,8 +13,10 @@ import Career from "./pages/Careers";
 import Team from "./pages/Team";
 import Services from "./pages/Services";
 import Software from "./pages/Software";
+import Hardware from "./pages/Hardware";
 // import Contact from "./pages/Contact";
 import Testimonials from "./pages/Testimonials";
+import Contact from "./pages/contact";
 import Git from "./pages/Git";
 import LatestNews from "./pages/LatestNews";
 import SignIn from "./authentication/SignIn";
@@ -57,11 +59,13 @@ const App: React.FC = () => {
           <Route path="/team" element={<Team />} />
           <Route path="/services" element={<Services />} />
           <Route path="/software" element={<Software />} />
+          <Route path="hardware" element={<Hardware/>}/>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/git" element={<Git />} />
           <Route path="/latestnews" element={<LatestNews />} />
 
