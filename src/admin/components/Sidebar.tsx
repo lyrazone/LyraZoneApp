@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
           </a>
           <ul id="forms" className="collapse list-unstyled">
             <li>
-              <Link to="/basic-form">Basic Form</Link>
+              <Link to="/adminproductform">Product Form</Link>
             </li>
             <li>
               <Link to="/form-layouts">Form Layouts</Link>

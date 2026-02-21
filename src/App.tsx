@@ -14,9 +14,11 @@ import Team from "./pages/Team";
 import Services from "./pages/Services";
 import Software from "./pages/Software";
 import Hardware from "./pages/Hardware";
+import SubProducts from "./pages/SubProducts";
+import SingleProduct from "./pages/SingleProduct";
 // import Contact from "./pages/Contact";
 import Testimonials from "./pages/Testimonials";
-import Contact from "./pages/contact";
+import Contact from "./pages/Contact";
 import Git from "./pages/Git";
 import LatestNews from "./pages/LatestNews";
 import SignIn from "./authentication/SignIn";
@@ -26,6 +28,7 @@ import ResetPassword from "./authentication/ResetPassword";
 // import LoginModal from "./pages/LoginModal";
 import AdminLogin from "./admin/pages/AdminLogin";
 import Profile from "./admin/pages/Profile";
+import ProductForm from "./admin/pages/ProductForm"
 import AdminHeader from "./admin/components/AdminHeader";
 
 const LayoutWrapper: React.FC<{ children: React.ReactNode }> = ({
@@ -59,7 +62,9 @@ const App: React.FC = () => {
           <Route path="/team" element={<Team />} />
           <Route path="/services" element={<Services />} />
           <Route path="/software" element={<Software />} />
-          <Route path="hardware" element={<Hardware/>}/>
+          <Route path="/hardware" element={<Hardware />}/>
+          <Route path="/subproducts" element={<SubProducts />}/>
+          <Route path="/singleproduct" element={<SingleProduct />}/>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -71,6 +76,7 @@ const App: React.FC = () => {
 
           <Route path="/adminprofile" element={<Profile />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/adminproductform" element={<ProductForm />}/>
         </Routes>
       </LayoutWrapper>
       {/* <Header /> */}

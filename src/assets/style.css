@@ -949,7 +949,7 @@ p {
         z-index: 2;
     }
 
-    .caption i {
+    .caption i {                                
         margin: 30% 4px;
         border: 2px solid #fff;
         cursor: pointer;

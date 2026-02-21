@@ -12,6 +12,7 @@ import "./assets/owl-carousel/owl.carousel.min.css";
 import "./assets/owl-carousel/owl.theme.default.min.css";
 import "./assets/style.css";
 import "./assets/Header.css";
+import "./assets/services.css";
  <link
   href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i"
   rel="stylesheet"

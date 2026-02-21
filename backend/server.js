@@ -63,7 +63,6 @@ app.get('/api/status/:token', async(req, res) => {
             if(err) {
                 console.log(err);
             } else {
-
                 res.status(200).json({status: 'success', data: result});
             }
         })
@@ -309,14 +308,78 @@ app.post("/api/reset-password/:token", async (req, res) => {
     });
 
 // Fetch Products API
-app.get('/api/products', (req, res) => {
-    const sql = 'SELECT * FROM products';
-    db.query(sql, (err, results) => {
-        if (err) {
-            return res.status(500).json({ message: 'Database error', error: err });
-        }
-        res.json(results);
-    });
+app.get('/api/categories', async (req, res) => {
+    try{
+        const sql = 'SELECT c.category_name, sc.id, sc.name, sc.description, sc.image FROM category c join subcategory sc on c.id = sc.CategoryID';
+        await new Promise ((resolve, reject) => {
+            db.query(sql, (err, data) => {
+                if (err) {
+                    reject(err);
+                    // return res.status(500).json({ message: 'Database error', error: err });
+                }
+                resolve(res.status(200).json({status: "success", categories: data}));
+            });
+        });
+    } catch (err) {
+        console.log("Error During /api/categories", err);
+        res.status(500).json({status: "failed", message: "Internal Server Error"})
+    }
+});
+
+app.get('/api/subcategoryId', async (req, res) => {
+    try{
+        const sql = 'SELECT subcategoryId, barCode from products';
+        await new Promise ((resolve, reject) => {
+            db.query(sql, (err, data) => {
+                if (err) {
+                    reject(err);
+                    // return res.status(500).json({ message: 'Database error', error: err });
+                }
+                resolve(res.status(200).json({status: "success", subcategoryId: data}));
+            });
+        });
+    } catch (err) {
+        console.log("Error During /api/subcategoryId", err);
+        res.status(500).json({status: "failed", message: "Internal Server Error"})
+    }
+});
+
+app.get('/api/subproducts/:subCategoryId', async (req, res) => {
+    try{
+        const subCategoryId = req.params.subCategoryId;
+        const sql = `SELECT * from products where subCategoryId = ${subCategoryId}`;
+        await new Promise ((resolve, reject) => {
+            db.query(sql, (err, data) => {
+                if (err) {
+                    reject(err);
+                    // return res.status(500).json({ message: 'Database error', error: err });
+                }
+                resolve(res.status(200).json({status: "success", subProduct: data}));
+            });
+        });
+    } catch (err) {
+        console.log("Error During /api/subproducts", err);
+        res.status(500).json({status: "failed", message: "Internal Server Error"})
+    }
+});
+
+app.get('/api/singleproducts/:barcode', async (req, res) => {
+    try{
+        const barcode = req.params.barcode;
+        const sql = `SELECT * from products where barCode = ${barcode}`;
+        await new Promise ((resolve, reject) => {
+            db.query(sql, (err, data) => {
+                if (err) {
+                    reject(err);
+                    // return res.status(500).json({ message: 'Database error', error: err });
+                }
+                resolve(res.status(200).json({status: "success", singleProduct: data}));
+            });
+        });
+    } catch (err) {
+        console.log("Error During /api/singleproducts", err);
+        res.status(500).json({status: "failed", message: "Internal Server Error"})
+    }
 });
 
 app.listen(process.env.PORT, () => {

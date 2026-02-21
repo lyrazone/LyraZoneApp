@@ -1,71 +1,66 @@
-import React from "react";
-import "../assets/style.css";
-import "../assets/services.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+// import "../assets/style.css";
+// import "../assets/services.css";
 import LatestNews from "./LatestNews";
 import ContactSection from "./ContactSection";
 import WhatWeDo from "./WhatWeDo";
+import ProductList from "./ProductList";
 
 const Hardware: React.FC = () => {
+  const [categories, setCategories] = useState([]);
+  const [subcategoryId, setSubcategoryId] = useState([]);
 
-    const products = [
-        {
-          title: "POS Terminals",
-          image: "src/assets/img/products/pos-1.jpg",
-          link: "pos-terminals.html",
-          description: "Here you can get New and Used POS Terminal; For listing click on Chain and to Chat with us Click WhatsApp.",
-          whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in POS Terminal."
-        },
-        {
-          title: "Cash Drawer USB",
-          image: "src/assets/img/products/cd-1/cd-1.jpg",
-          link: "sp-pos-h2.html",
-          description: "Posiflex CR 3000 Series Cash Drawer - USB with 5 Bills / 8 Coins (Metal Wire Grips); For details click on Chain Icon or WhatsApp Now to chat with us.",
-          whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in 410 USB Cash Drawer - USB Connection."
-        },
-        {
-            title: "Flip Top Cash Drawer",
-            image: "src/assets/img/products/ft-1/ft-1.jpg",
-            link: "sp-pos-h3.html",
-            description: "POS Flip Top Cash Drawer ECD-460 (RJ 11 Connection); to get more details click on Chain Icon or WhatsApp Now to chat with us. ",
-            whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in POS Terminal."
-          },
-          {
-            title: "Cash Drawer USB",
-            image: "img/products/cd-1/cd-1.jpg",
-            link: "sp-pos-h2.html",
-            description: "Posiflex CR 3000 Series Cash Drawer - USB with 5 Bills / 8 Coins (Metal Wire Grips); For details click on Chain Icon or WhatsApp Now to chat with us.",
-            whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in 410 USB Cash Drawer - USB Connection."
-          },
-          {
-            title: "POS Terminals",
-            image: "img/products/pos-1.jpg",
-            link: "pos-terminals.html",
-            description: "Here you can get New and Used POS Terminal; For listing click on Chain and to Chat with us Click WhatsApp.",
-            whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in POS Terminal."
-          },
-          {
-            title: "Cash Drawer USB",
-            image: "img/products/cd-1/cd-1.jpg",
-            link: "sp-pos-h2.html",
-            description: "Posiflex CR 3000 Series Cash Drawer - USB with 5 Bills / 8 Coins (Metal Wire Grips); For details click on Chain Icon or WhatsApp Now to chat with us.",
-            whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in 410 USB Cash Drawer - USB Connection."
-          },
-          {
-            title: "POS Terminals",
-            image: "img/products/pos-1.jpg",
-            link: "pos-terminals.html",
-            description: "Here you can get New and Used POS Terminal; For listing click on Chain and to Chat with us Click WhatsApp.",
-            whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in POS Terminal."
-          },
-          {
-            title: "Cash Drawer USB",
-            image: "img/products/cd-1/cd-1.jpg",
-            link: "sp-pos-h2.html",
-            description: "Posiflex CR 3000 Series Cash Drawer - USB with 5 Bills / 8 Coins (Metal Wire Grips); For details click on Chain Icon or WhatsApp Now to chat with us.",
-            whatsappMessage: "Hi,%0ALyra Zone Sales Rep!%0AI am interested in 410 USB Cash Drawer - USB Connection."
-          },
-        // Add more products as needed
-      ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/categories");
+        console.log(response.data.categories);
+        setCategories(response.data.categories);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData(); // Call the async function inside useEffect
+  }, []);
+
+  useEffect(() => {
+    const fetchSubcategoryId = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/subcategoryId");
+        console.log(response.data.subcategoryId);
+        // localStorage.setItem("products", JSON.stringify(response.data.subcategoryId));
+        setSubcategoryId(response.data.subcategoryId);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchSubcategoryId(); // Call the async function inside useEffect
+  }, []);
+
+  const groupedCategories = categories.reduce((acc, category) => {
+    if (!acc[category.category_name]) {
+      acc[category.category_name] = [];
+    }
+    acc[category.category_name].push(category);
+    return acc;
+  }, {});
+
+  const productData = (subCategoryId: any) => {
+    console.log(subCategoryId);
+    const filteredsubcategoryId = subcategoryId.filter((obj: any) => obj.subcategoryId === subCategoryId);
+    console.log(filteredsubcategoryId);
+    if (filteredsubcategoryId.length > 1) {
+      window.location.href = `/subproducts?id=${subCategoryId}`;
+    } else if (filteredsubcategoryId.length === 1) {
+      console.log(filteredsubcategoryId);
+      window.location.href = `/singleproduct?barcode=${filteredsubcategoryId[0].barCode}`;
+    } else {
+      alert("No Product Found");
+    }
+  }
 
   return (
     <>
@@ -102,33 +97,111 @@ const Hardware: React.FC = () => {
         </div>
       </section>
 
-      <section id="comp-offer">
-      <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.2s">
-          <h2>POS HARDWARE</h2>
-          <div className="heading-border-light"></div>
-        </div>
-        {products.map((product, index) => (
-          <div key={index} className="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp" data-wow-delay="0.4s">
-            <div className="desc-comp-offer-cont">
-              <div className="thumbnail-blogs">
-                <div className="caption">
-                  <a href={product.link}><i className="fa fa-chain"></i></a>
-                </div>
-                <img src={product.image} className="img-fluid" alt={product.title} />
-              </div>
-              <h3>{product.title}</h3>
-              <p className="desc">{product.description}</p>
-              <a href={`https://wa.me/+60149936302?text=${product.whatsappMessage}`} target="_blank" rel="noopener noreferrer">
-                <button className="btn btn-general btn-silver" role="button">WhatsApp Now</button>
-              </a>
+      {/* <section id="comp-offer">
+        <div className="container-fluid">
+          <div className="row">
+            <div
+              className="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp"
+              data-wow-delay="0.2s"
+            >
+              <h2>Products</h2>
+              <div className="heading-border-light"></div>
             </div>
+            {products.map((product, index) => (
+              <div
+                key={index}
+                className="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp"
+                data-wow-delay="0.4s"
+              >
+                <div className="desc-comp-offer-cont">
+                  <div className="thumbnail-blogs">
+                    <div className="caption">
+                      <a href="/singleproduct">
+                        <i className="fa fa-chain"></i>
+                      </a>
+                    </div>
+                    <img
+                      src={`src/assets/img/products/${product.image}`}
+                      className="img-fluid"
+                      alt={product.name}
+                    />
+                  </div>
+                  <h3>{product.name}</h3>
+                  <p className="desc">{product.description}</p>
+                  <a
+                    href={`https://wa.me/+60149936302?text=${product.whatsappMessage}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button
+                      className="btn btn-general btn-silver"
+                      role="button"
+                    >
+                      WhatsApp Now
+                    </button>
+                  </a>
+                </div>
+              </div>
+          ))}
           </div>
-        ))}
-      </div>
+        </div>
+      </section> */}
+      
+      <section id="comp-offer">
+  <div className="container-fluid">
+    <div className="row">
+      {Object.entries(groupedCategories).map(([category, items], catIndex) => (
+        <React.Fragment key={catIndex}>
+
+          <div
+            className="col-md-12 desc-comp-offer wow fadeInUp"
+            data-wow-delay="0.2s"
+          >
+            <h2>{category}</h2>
+            <div className="heading-border-light"></div>
+          </div>
+
+          {items.map((subCategory: any, index: any) => (
+            <div
+              key={index}
+              className="col-md-3 col-sm-6 desc-comp-offer wow fadeInUp"
+              data-wow-delay="0.4s"
+              >
+              <div className="desc-comp-offer-cont">
+                <div className="thumbnail-blogs">
+                  {/* <div className="caption"> */}
+                    <a onClick={() => productData(subCategory.id)} >
+                      {/* href="/singleproduct" */}
+                    <img
+                    src={`src/assets/img/products/${subCategory.image}`}
+                    className="img-fluid"
+                    alt={subCategory.name}
+                    />
+                      {/* <i className="fa fa-chain"></i> */}
+                    </a>
+                  {/* </div> */}
+                  
+                </div>
+                <h3>{subCategory.name}</h3>
+                <p className="desc">{subCategory.description}</p>
+                <a
+                  href={`https://wa.me/+60149936302?text=${subCategory.whatsappMessage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="btn btn-general btn-silver" role="button">
+                    WhatsApp Now
+                  </button>
+                </a>
+              </div>
+            </div>
+          ))}
+       </React.Fragment>
+      ))}
     </div>
-      </section>
+  </div>
+</section>
+
 
       <WhatWeDo />
       <ContactSection />
