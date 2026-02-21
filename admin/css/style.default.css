@@ -923,6 +923,7 @@ nav.navbar .dropdown-menu h3.msg-nav-h3 {
 
 @media (max-width: 1200px) {
     nav.navbar {
+        width: auto;
         /*==== Toggle Sidebar Btn ====*/
     }
     
